@@ -218,10 +218,72 @@ use({ 'lewis6991/gitsigns.nvim',
     end,
 })
 
--- 
+-- Nvim Treesitter for formatting
+use({
+    'nvim-treesitter/nvim-treesitter',
+    run = function() 
+        require('nvim-treesitter.install').update({ with_sync = true })
+    end,
+    config = function()
+        require('user.plugins.treesitter')
+    end,
+})
+
+-- LSP Configuration
+use({
+    "neovim/nvim-lspconfig",
+    requires = {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        'b0o/schemastore.nvim',
+    },
+    config = function()
+        require('user/plugins/lspconfig')
+    end,
+})
+
+-- Vim Fugitive
 use({
     'tpope/vim-fugitive',
     require = 'tpope/vim-rhubarb',
+})
+
+-- Auto Completion
+use({
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
+      'onsails/lspkind-nvim',
+    },
+    config = function()
+        require('user/plugins/cmp')
+    end,
+})
+
+-- Add GitHub Copilot
+use({
+    'github/copilot.vim',
+    config = function()
+        vim.g.copilot_no_tab_map = true -- Disable default keybindings
+        vim.api.nvim_set_keymap("i", "<D-j>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+        vim.cmd([[imap <silent><script><expr> <D-j> copilot#Accept("\<CR>")]])
+    end,
+})
+
+-- Vim terminal
+use({
+    'voldikss/vim-floaterm',
+    config = function()
+        vim.g.floaterm_width = 0.8
+        vim.g.floaterm_height = 0.8
+        vim.keymap.set('n', 'TT', ':FloatermToggle<CR>')
+        vim.keymap.set('t', 'TT', "<C-\\><C-n>:FloatermToggole<CR>")
+    end,
 })
 
 -- Automatically set up your configuration after cloning packer.nvim
