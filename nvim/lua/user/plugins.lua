@@ -242,6 +242,16 @@ use({
     end,
 })
 
+-- PHPactor
+use({
+    'phpactor/phpactor',
+    ft = 'php',
+    run = 'composer install --no-dev --optimize-autoloader',
+    config = function()
+        vim.keymap.set('n;', '<Leader>pm', ':PhpactorContextMenu<CR>')
+    end,
+})
+
 -- Vim Fugitive
 use({
     'tpope/vim-fugitive',

@@ -27,6 +27,9 @@ map('v', 'p', '"_dP')
 map('i', ';;', '<Esc>A;')
 map('i', ',,', '<Esc>A,')
 
+-- Go to end of the line in insert mode
+map('i', '<C-e>', '<Esc>A')
+
 -- Keybindings for no highlights
 map('n', '<Leader>k', ':nohlsearch<CR>')
 

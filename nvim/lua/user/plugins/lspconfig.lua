@@ -5,7 +5,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- PHP
 require('lspconfig').intelephense.setup({
-  capabilities = capabilities
+  capabilities = capabilities,
 })
 
 -- JS
@@ -16,7 +16,7 @@ require('lspconfig').volar.setup({
 
 -- Tailwind CSS
 require('lspconfig').tailwindcss.setup({
-  capabilities = capabilities
+  capabilities = capabilities,
 })
 
 require('lspconfig').jsonls.setup({

@@ -13,8 +13,6 @@ plugins=(
     composer
     cp
     dnf
-    docker
-    docker-compose
     git
     httpie
     rsync
@@ -99,6 +97,9 @@ alias fls="filament-resource"
 alias g="git"
 alias gs="git s"
 alias co="git checkout"
+
+# Mysql
+alias start-mysql="mysql -u root -p"
 alias main='git checkout $([ `git rev-parse --quiet --verify master` ] && echo "master" || echo "main")'
 nah() {
     git reset --hard
@@ -107,10 +108,6 @@ nah() {
         git clean -df
     fi
 }
-
-# Docker
-alias d="docker"
-alias dc="docker compose"
 
 open () {
     xdg-open $* > /dev/null 2>&1
@@ -146,3 +143,4 @@ fi
 # vim: nospell
 export PATH="/opt/homebrew/opt/php@8.3/bin:$PATH"
 export PATH="/opt/homebrew/opt/php@8.3/sbin:$PATH"
+export PATH="/usr/local/mysql/bin/:$PATH"
