@@ -27,6 +27,9 @@ use('wbthomason/packer.nvim')
 
 -- Install a colorscheme
 use { "catppuccin/nvim", as = "catppuccin" }
+use({
+    "folke/tokyonight.nvim",
+})
 
 -- Change the theme
 use({
