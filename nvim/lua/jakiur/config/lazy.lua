@@ -16,15 +16,21 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup('jakiur.plugins', {
-  checker = {
-    enabled = true,
-    notify = false,
+-- Setup lazy.nvim
+require("lazy").setup({
+  spec = {
+    { import = "jakiur.plugins" },
+    { import = "jakiur.plugins.cp" },
+  },
+  install = { 
+    colorscheme = {"tokyonight", "habamax" } 
   },
   change_detection = {
     notify = false,
   },
-  install = {
-    colorscheme = {"tokyonight","habamax" },
+
+  checker = {
+    enabled = true,
+    notify = false,
   },
 })
