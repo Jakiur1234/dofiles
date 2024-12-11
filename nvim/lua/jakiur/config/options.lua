@@ -26,7 +26,7 @@ optset.termguicolors = true
 optset.spell = true
 
 optset.ignorecase = true
-optset.smartcase = ture
+optset.smartcase = true
 
 optset.list = true -- enable the below list-characters
 optset.listchars = { tab = '▸ ', trail = '·', nbsp = '␣' }
@@ -39,7 +39,7 @@ optset.scrolloff = 0
 optset.sidescrolloff = 0
 
 optset.clipboard = 'unnamedplus' -- Use system clipboard
-optset.confirm = ture
+optset.confirm = true
 
 optset.undofile = true -- Remember undo history
 optset.backup = true -- automatically save a backup file

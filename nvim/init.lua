@@ -1,3 +1,3 @@
-require('user/plugins')
-require('user/options')
-require('user/keymaps')
+require('jakiur.config.keymaps')
+require('jakiur.config.options')
+require('jakiur.config.lazy')
