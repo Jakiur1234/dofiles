@@ -6,30 +6,49 @@ return {
         "williamboman/mason-lspconfig.nvim",
         'b0o/schemastore.nvim',
     },
+    keys = {
+        { '<Leader>d', '<cmd>Lua vim.diagnostic.open_float()<CR>' },
+        { '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>' },
+        { 'J]d', '<cmd>lua vim.diagnostic.goto_next()<CR>' },
+        { 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>' },
+        { 'fi', ':Telescope lsp_implementations<CR>' },
+        { 'gr', ':Telescope lsp_references<CR>' },
+        { 'K', '<cmd>lua vim.lsp.buf.hover()<CR>' },
+        { '<Leader>rn', '<cmd>lua vim.lsp.buf.rename<CR>' },
+    },
     config = function()
         require('mason').setup()
         require('mason-lspconfig').setup({ automatic_installation = true })
 
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+        local lspcnf = require('lspconfig')
+
         -- PHP
-        require('lspconfig').intelephense.setup({
+        lspcnf.intelephense.setup({
           capabilities = capabilities,
+          commands = {
+            IntelephenseIndex = {
+              function()
+                vim.lsp.buf.execute_command({ command = 'intelephense.index.workspace' })
+              end,
+            },
+          },
         })
 
         -- JS
-        require('lspconfig').volar.setup({
+        lspcnf.volar.setup({
           capabilities = capabilities,
           filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
         })
 
         -- Tailwind CSS
-        require('lspconfig').tailwindcss.setup({
+        lspcnf.tailwindcss.setup({
           capabilities = capabilities,
         })
 
         -- Jsonls
-        require('lspconfig').jsonls.setup({
+        lspcnf.jsonls.setup({
           capabilities = capabilities,
           settings = {
             json = {
@@ -38,34 +57,76 @@ return {
           },
         })
 
-        require('lspconfig').clangd.setup({
+        -- Clangd (C/C++)
+        lspcnf.clangd.setup({
           capabilities = capabilities,
           single_file_support = true,
         })
 
-        -- Keymaps
-        local set = vim.keymap.set
-        set('n', '<Leader>d', '<cmd>Lua vim.diagnostic.open_float()<CR>')
-        set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-        set('n', 'J]d', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-        set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-        set('n', 'fi', ':Telescope lsp_implementations<CR>')
-        set('n', 'gr', ':Telescope lsp_references<CR>')
-        set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-        set('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+      -- Tssserver
+    require('lspconfig').ts_ls.setup({
+      init_options = {
+        plugins = {
+          {
+            name = "@vue/typescript-plugin",
+            location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
+            languages = {"javascript", "typescript", "vue"},
+          },
+        },
+      },
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+        "vue",
+      },
+    })
 
-        -- Diagnostic Configuration
-        vim.diagnostic.config({
-          virtual_text = false,
-          float = {
-            source = true,
+    -- Lua
+    require('lspconfig').lua_ls.setup({
+      settings = {
+        Lua = {
+          runtime = { version = 'LuaJIT' },
+          workspace = {
+            checkThirdParty = false,
+            library = {
+              '${3rd}/luv/library',
+              unpack(vim.api.nvim_get_runtime_file('', true)),
+            },
           }
-        })
+        }
+      }
+    })
 
-        -- Sign Configuration
-        vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
-        vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
-        vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
-        vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
+    -- Eslint
+    require('lspconfig').eslint.setup({
+      capabilities = capabilities,
+      on_attach = function(client, bufnr)
+        vim.api.nvim_create_autocmd("BufWritePre", {
+          buffer = bufnr,
+          command = "EslintFixAll",
+        })
+      end,
+      handlers = {
+        ['textDocument/publishDiagnostics'] = function() end
+      }
+    })
+
+    -- Diagnostic Configuration
+    vim.diagnostic.config({
+      virtual_text = false,
+      float = {
+        source = true,
+      }
+    })
+
+      -- Sign Configuration
+      vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
+      vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
+      vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
+      vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
     end,
 }

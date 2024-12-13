@@ -40,4 +40,7 @@ return{
 
     -- Allow plugins to enable repeating of commands.
     { 'tpope/vim-repeat' },
+
+    -- Vim TMUX Navigator
+    { 'christoomey/vim-tmux-navigator' },
 }
