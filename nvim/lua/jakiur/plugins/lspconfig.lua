@@ -37,10 +37,10 @@ return {
         })
 
         -- JS
-        lspcnf.volar.setup({
-          capabilities = capabilities,
-          filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
-        })
+        -- lspcnf.volar.setup({
+        --   capabilities = capabilities,
+        --   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
+        -- })
 
         -- Tailwind CSS
         lspcnf.tailwindcss.setup({
