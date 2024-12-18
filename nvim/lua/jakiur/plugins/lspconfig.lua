@@ -115,6 +115,11 @@ return {
       }
     })
 
+    -- Bashls
+    require('lspconfig').bashls.setup({
+      capabilities = capabilities,
+    })
+
     -- Diagnostic Configuration
     vim.diagnostic.config({
       virtual_text = false,

@@ -3,25 +3,10 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = 'kyazdani42/nvim-web-devicons',
     config = function()
-        local seperator = { '" "', color="StatusLineNonText" }
-
         require('lualine').setup({
-            options = {
-              section_separators = '',
-              component_separators = '',
-              globalstatus = true,
-              theme = {
-                normal = {
-                  a = 'StatusLine',
-                  b = 'StatusLine',
-                  c = 'StatusLine',
-                },
-              },
-            },
             sections = {
               lualine_a = {
-                'mode',
-                seperator,
+                'mode'
               },
               lualine_b = {
                 'branch',
