@@ -1,8 +1,8 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 theme_name="robbyrussell"
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-  theme_name="powerlevel10k/powerlevel10k"
+is_install=$(ls $HOME/.oh-my-zsh/custom/themes/ | grep "powerlevel10k")
+if [[ is_install -eq "powerlevel10k" ]]; then
+    theme_name="powerlevel10k/powerlevel10k"
 fi
 
 export ZSH=$HOME/.oh-my-zsh
@@ -78,12 +78,21 @@ export FZF_DEFAULT_OPTS='
 #--------------------------------------------------------------------------
 if command -v fzf &> /dev/null; then
   # Set custom fzf options if fzf is installed
-  export FZF_DEFAULT_OPTS="
-    --color=fg:#d0d0d0,bg:-1,hl:#5f87af,fg+:#d0d0d0,bg+:#ff6600,hl+:#5fd7ff
-    --border=sharp
-    --preview-window=right:50%:wrap
-    --preview 'echo {}'
-  "
+    export FZF_DEFAULT_OPTS="
+        --multi \
+        --height=50% \
+        --layout=reverse \
+        --prompt='> ' \
+        --border="rounded" --border-label="" --preview-window="border-rounded" --
+        --bind=tab:down \
+        --bind=shift-tab:up \
+        --bind=space:toggle+down \
+        --bind=ctrl-a:toggle-all \
+        --bind=ctrl-d:deselect-all \
+        --bind=ctrl-s:toggle-sort \
+        --preview 'echo {}' \
+        --preview-window=right:50%:wrap
+    "
 fi
 
 

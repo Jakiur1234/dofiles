@@ -16,7 +16,7 @@ echo "Fetching Homebrew package list..."
 packages=$(brew formulae; brew casks)
 
 # Use fzf to search and select a package
-selected_package=$(echo "$packages" | fzf --height=100% --layout=reverse --prompt="Search Brew Packages: ")
+selected_package=$(echo "$packages" | fzf --prompt="Search Brew Packages: ")
 
 # Check if a package was selected
 if [[ -n "$selected_package" ]]; then
