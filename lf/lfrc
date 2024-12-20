@@ -1,0 +1,73 @@
+# Basic Settings
+set hidden true
+set ignorcase true
+set icons true
+
+# Custom commands
+cmd mkdirandfile ${{
+    echo "Enter the name (use trailing slash for directories):"
+    read name
+    
+    # Check for trailing slash
+    if [[ "$name" == */ ]]; then
+        # Remove trailing slash for consistency and create directory
+        dir_name="${name%/}"
+        mkdir -p "$dir_name"
+        echo "Directory '$dir_name' created."
+    else
+        # Create a file with the name provided
+        nvim "$name"
+        echo "File '$name' open to the nvim."
+    fi
+}}
+
+cmd unarchive ${{
+    set -f
+    case $f in
+        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+        *.tar.gz|*.tgz) tar xzvf $f;;
+        *.tar.xz|*.txz) tar xJvf $f;;
+        *.zip) unzip $f;;
+        *.rar) unrar x $f;;
+        *.7z) 7z x $f;;
+    esac
+}}
+
+# compress current file or selected files with zip
+cmd archive ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    zip -r $1.zip $1
+}}
+# make sure trash folder exists
+# %mkdir -p ~/.trash
+
+# move current file or selected files to trash folder
+# (also see 'man mv' for backup/overwrite options)
+cmd trash ${{
+    %set -f; mv $fx ~/.Trash
+}}
+
+# define a custom 'delete' command
+cmd delete ${{
+    set -f
+    printf "$fx\n"
+    printf "Delete permanently?[yyy/nnn]"
+    read ans
+    [ "$ans" = "yyy" ] && rm -rf $fx
+}}
+
+# Basic mappings
+map . set hidden!
+map DD trash
+map DP delete
+map p paste
+map x cut
+map y copy
+map <enter> open
+map R reload
+map a mkdirandfile
+map C clear
+map un unarchive
+map ar archive

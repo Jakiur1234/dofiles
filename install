@@ -2,12 +2,19 @@
 
 DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
+# Symlink kitty
 rm -rf $HOME/.config/kitty
 ln -s $DOTFILES/kitty $HOME/.config/kitty
 
+# symkink kitty
 rm -rf $HOME/.tmux.conf
 ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 
+# symlink lf file manager
+rm -rf $HOME/.config/lf
+ln -s $DOTFILES/lf $HOME/.config/lf
+
+# Symlink scripts
 mkdir -p $HOME/.local/bin
 rm -rf $HOME/.local/bin/phpstorm
 ln -s $DOTFILES/scripts/phpstorm $HOME/.local/bin/phpstorm
@@ -16,11 +23,14 @@ ln -s $DOTFILES/scripts/app-finder.sh $HOME/.local/bin/finder
 rm -rf $HOME/.local/bin/fbrew
 ln -s $DOTFILES/scripts/brew-finder.sh $HOME/.local/bin/fbrew
 
+# Symlink zsh
 rm -rf $HOME/.zshrc
 ln -s $DOTFILES/zsh/zshrc $HOME/.zshrc
 
+# Symlink powerlevel10k
 rm -rf $HOME/.p10k.zsh
 ln -s $DOTFILES/scripts/powerlevel10k.zsh $HOME/.p10k.zsh
 
+# Symlink nvim
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
