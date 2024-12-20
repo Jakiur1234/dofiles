@@ -22,6 +22,8 @@ rm -rf $HOME/.local/bin/finder
 ln -s $DOTFILES/scripts/app-finder.sh $HOME/.local/bin/finder
 rm -rf $HOME/.local/bin/fbrew
 ln -s $DOTFILES/scripts/brew-finder.sh $HOME/.local/bin/fbrew
+rm -rf $HOME/.local/bin/toggole-trans
+ln -s $DOTFILES/kitty/toggle-transparency.sh $HOME/.local/bin/toggle-trans
 
 # Symlink zsh
 rm -rf $HOME/.zshrc
