@@ -42,7 +42,6 @@ path=(
     ./vendor/bin
     $HOME/Applications/PhpStorm.app/Contents/MacOS
     $HOME/.local/share/bob/nvim-bin
-    $HOME/Code/jessarcher/dotfiles/scripts
     ${ANDROID_HOME}tools/
     ${ANDROID_HOME}platform-tools/
     $path
@@ -157,15 +156,9 @@ zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 ### Fix slowness of pastes
 
-if [ -e /home/jess/.nix-profile/etc/profile.d/nix.sh ]; then . /home/jess/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-
-if [[ $- == *i* && $0 == '/usr/bin/zsh' ]]; then
-    ~/Code/jessarcher/dotfiles/scripts/login.sh
-fi
 
 # vim: nospell
 export PATH="/opt/homebrew/opt/php@8.3/bin:$PATH"
