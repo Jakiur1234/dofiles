@@ -22,20 +22,6 @@ return {
         ]])
 
         -- Custom action to open multiple files in tabs
-        local function open_multiple_files_in_tabs(prompt_bufnr)
-            local picker = action_state.get_current_picker(prompt_bufnr)
-            local selections = picker:get_multi_selection()
-            actions.close(prompt_bufnr)
-
-            if #selections == 0 then
-                local current_entry = action_state.get_selected_entry()
-                vim.cmd("tabnew " .. current_entry.path)
-            else
-                for _, entry in ipairs(selections) do
-                    vim.cmd("tabnew " .. entry.path)
-                end
-            end
-        end
 
         -- Custom function to search under a folder
         local function search_under_folder()
@@ -74,12 +60,14 @@ return {
                     i = {
                         ['<Tab>'] = actions.toggle_selection + actions.move_selection_next,
                         ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_previous,
-                        ['<CR>'] = open_multiple_files_in_tabs,
+                        -- It will open mutiple files in tabs
+                        ["<C-o>"] = function(p_bufnr) require("telescope.actions").send_selected_to_qflist(p_bufnr) vim.cmd.cfdo("edit") end,
                     },
                     n = {
                         ['<Tab>'] = actions.toggle_selection + actions.move_selection_next,
                         ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_previous,
-                        ['<CR>'] = open_multiple_files_in_tabs,
+                        -- It will open mutiple files in tabs
+                        ["<C-o>"] = function(p_bufnr) require("telescope.actions").send_selected_to_qflist(p_bufnr) vim.cmd.cfdo("edit") end,
                         ['q'] = actions.close,
                     },
                 },
