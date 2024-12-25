@@ -1,6 +1,12 @@
 return{
     -- For commenting a line. Just press gcc to comment and uncomment 
-    {'tpope/vim-commentary'},
+    {
+    'tpope/vim-commentary',
+    config = function()
+        -- Maintain cursor position
+        vim.keymap.set('n', 'gcap', 'my<cmd>norm vip<bar>gc<cr>`y')
+    end,
+    },
 
     -- Add, Change, and Delete surrounding text
     {'tpope/vim-surround'},
