@@ -102,18 +102,18 @@ return {
     })
 
     -- Eslint
-    require('lspconfig').eslint.setup({
-      capabilities = capabilities,
-      on_attach = function(client, bufnr)
-        vim.api.nvim_create_autocmd("BufWritePre", {
-          buffer = bufnr,
-          command = "EslintFixAll",
-        })
-      end,
-      handlers = {
-        ['textDocument/publishDiagnostics'] = function() end
-      }
-    })
+    -- require('lspconfig').eslint.setup({
+    --   capabilities = capabilities,
+    --   on_attach = function(client, bufnr)
+    --     vim.api.nvim_create_autocmd("BufWritePre", {
+    --       buffer = bufnr,
+    --       command = "EslintFixAll",
+    --     })
+    --   end,
+    --   handlers = {
+    --     ['textDocument/publishDiagnostics'] = function() end
+    --   }
+    -- })
 
     -- Bashls
     require('lspconfig').bashls.setup({

@@ -124,6 +124,15 @@ alias g="git"
 alias gs="git s"
 alias co="git checkout"
 
+# check it for github
+ghpr() {
+    local basename="$1"
+    local headname="$2"
+    local title="$3"
+    local body="$4"
+    gh pr create --base "$basename" --title "$title" --body "$body"
+}
+
 # Mysql
 alias start-mysql="mysql -u root -p"
 alias main='git checkout $([ `git rev-parse --quiet --verify master` ] && echo "master" || echo "main")'
@@ -167,3 +176,4 @@ export PATH="/usr/local/mysql/bin/:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export PATH="$HOME/.local/bin:$PATH"

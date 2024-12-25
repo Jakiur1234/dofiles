@@ -1,29 +1,32 @@
 #!/bin/bash
 
+# Colors for output
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+NC="\033[0m" # Reset color
+
 DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+
+echo -e "${GREEN}[+] Starting dotfiles installation...${NC}"
 
 # Symlink kitty
 rm -rf $HOME/.config/kitty
 ln -s $DOTFILES/kitty $HOME/.config/kitty
 
-# symkink kitty
+# Symlink tmux
 rm -rf $HOME/.tmux.conf
 ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 
-# symlink lf file manager
+# Symlink lf file manager
 rm -rf $HOME/.config/lf
 ln -s $DOTFILES/lf $HOME/.config/lf
 
 # Symlink scripts
 mkdir -p $HOME/.local/bin
-rm -rf $HOME/.local/bin/phpstorm
-ln -s $DOTFILES/scripts/phpstorm $HOME/.local/bin/phpstorm
-rm -rf $HOME/.local/bin/finder
-ln -s $DOTFILES/scripts/app-finder.sh $HOME/.local/bin/finder
-rm -rf $HOME/.local/bin/fbrew
-ln -s $DOTFILES/scripts/brew-finder.sh $HOME/.local/bin/fbrew
-rm -rf $HOME/.local/bin/toggole-trans
-ln -s $DOTFILES/kitty/toggle-transparency.sh $HOME/.local/bin/toggle-trans
+ln -sf $DOTFILES/scripts/phpstorm $HOME/.local/bin/phpstorm
+ln -sf $DOTFILES/scripts/app-finder.sh $HOME/.local/bin/finder
+ln -sf $DOTFILES/scripts/brew-finder.sh $HOME/.local/bin/fbrew
+ln -sf $DOTFILES/kitty/toggle-transparency.sh $HOME/.local/bin/toggle-trans
 
 # Symlink zsh
 rm -rf $HOME/.zshrc
@@ -36,3 +39,61 @@ ln -s $DOTFILES/scripts/powerlevel10k.zsh $HOME/.p10k.zsh
 # Symlink nvim
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
+
+# Install Homebrew
+if ! command -v brew &>/dev/null; then
+    echo -e "${GREEN}[+] Installing Homebrew...${NC}"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+    echo -e "${GREEN}[+] Homebrew is already installed.${NC}"
+fi
+
+# Install oh-my-zsh
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo -e "${GREEN}[+] Installing oh-my-zsh...${NC}"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+else
+    echo -e "${GREEN}[+] oh-my-zsh is already installed.${NC}"
+fi
+
+# Install Powerlevel10K
+if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
+    echo -e "${GREEN}[+] Installing Powerlevel10K...${NC}"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+else 
+    echo -e "${GREEN}[+] Powerlevel10K is already installed.${NC}"
+fi
+
+# Install tmux
+if ! command -v tmux &>/dev/null; then
+    echo -e "${GREEN}[+] Installing Tmux...${NC}"
+    brew install tmux
+else
+    echo -e "${GREEN}[+] Tmux is already installed.${NC}"
+fi
+
+# Install tpm
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    echo -e "${GREEN}[+] Installing Tmux Plugin Manager...${NC}"
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+else
+    echo -e "${GREEN}[+] Tmux Plugin Manager is already installed.${NC}"
+fi
+
+# Install neovim
+if ! command -v nvim &>/dev/null; then
+    echo -e "${GREEN}[+] Installing Neovim...${NC}"
+    brew install neovim
+else
+    echo -e "${GREEN}[+] Neovim is already installed.${NC}"
+fi
+
+# Install fzf
+if ! command -v fzf &>/dev/null; then
+    echo -e "${GREEN}[+] Installing Fzf...${NC}"
+    brew install fzf
+else
+    echo -e "${GREEN}[+] Fzf is already installed.${NC}"
+fi
+
+echo -e "${GREEN}[+] Dotfiles installation completed successfully!${NC}"
