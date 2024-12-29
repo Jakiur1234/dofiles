@@ -5,7 +5,7 @@ return {
   lazy = false,
   priority = 1000,
   opts = {
-    style = 'night',
+    style = 'storm',
     on_colors = function (colors)
       local util = require('tokyonight.util')
       colors.gitSigns = {

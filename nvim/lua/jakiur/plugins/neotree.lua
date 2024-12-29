@@ -4,13 +4,11 @@ return {
   'nvim-neo-tree/neo-tree.nvim',
   cmd = 'Neotree',
   keys = {
-    { '<leader>ee', ':Neotree toggle<CR>' },
-    { '<leader>eb', ':Neotree toggle source=buffers<CR>' },
-    { '<leader>eg', ':Neotree toggle git_status<CR>' },
+    { '<leader>e', ':Neotree reveal toggle<CR>' },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+    "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
     {
       's1n7ax/nvim-window-picker',
@@ -38,23 +36,9 @@ return {
   },
   opts = {
     close_if_last_window = true,
-    hide_root_node = true,
+    hide_root_node = false,
     sources = {
       "filesystem",
-      "buffers",
-      "git_status",
-      "document_symbols",
-    },
-    source_selector = {
-      winbar = true,
-      statusline = false,
-      separator = { left = "", right= "" },
-      show_separator_on_edge = true,
-      highlight_tab = "SidebarTabInactive",
-      highlight_tab_active = "SidebarTabActive",
-      highlight_background = "StatusLine",
-      highlight_separator = "SidebarTabInactiveSeparator",
-      highlight_separator_active = "SidebarTabActiveSeparator",
     },
     event_handlers = {
       {
@@ -83,6 +67,7 @@ return {
         hide_dotfiles = false,
         hide_by_name = {
           ".git",
+          "vendor",
         },
       },
       -- follow_current_file = {

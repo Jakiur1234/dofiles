@@ -14,15 +14,21 @@ return {
         languages = {
           php_only = '// %s',
           php = '// %s',
-          blade = {
-            __default = '{{-- %s --}}',
-            html = '{{-- %s --}}',
-            blade = '{{-- %s --}}',
-            php = '// %s',
-            php_only = '// %s',
-          }
+          -- blade = '{{-- %s --}}',
+          -- blade = {
+          --   __default = '{{-- %s --}}',
+          --   html = '{{-- %s --}}',
+          --   blade = '{{-- %s --}}',
+          --   php = '// %s',
+          --   php_only = '// %s',
+          -- }
         },
         custom_calculation = function (node, language_tree)
+          -- print(language_tree:lang())
+          -- print(node:type())
+          print(vim.bo.filetype)
+          print(language_tree._lang)
+          print('----')
           if vim.bo.filetype == 'blade' then
             if language_tree._lang == 'html' then
               return '{{-- %s --}}'
@@ -30,6 +36,9 @@ return {
               return '// %s'
             end
           end
+          -- if vim.bo.filetype == 'blade' and language_tree._lang ~= 'javascript' and language_tree._lang ~= 'php' then
+          --   return '{{-- %s --}}'
+          -- end
         end,
       },
     },
@@ -43,8 +52,6 @@ return {
       'blade',
       'comment',
       'css',
-      'cpp',
-      'c',
       'diff',
       'dockerfile',
       'git_config',
@@ -103,6 +110,17 @@ return {
     },
   },
   config = function (_, opts)
+    local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+
+    parser_config.blade = {
+      install_info = {
+        url = "https://github.com/EmranMR/tree-sitter-blade",
+        files = {"src/parser.c"},
+        branch = "main",
+      },
+      filetype = "blade"
+    }
+
     vim.filetype.add({
       pattern = {
         ['.*%.blade%.php'] = 'blade',
