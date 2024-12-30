@@ -127,9 +127,8 @@ alias co="git checkout"
 # check it for github
 ghpr() {
     local basename="$1"
-    local headname="$2"
-    local title="$3"
-    local body="$4"
+    local title="$2"
+    local body="$3"
     gh pr create --base "$basename" --title "$title" --body "$body"
 }
 
