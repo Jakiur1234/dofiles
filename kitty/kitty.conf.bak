@@ -56,6 +56,6 @@ hide_window_decorations no
 fullscreen yes
 
 # BEGIN_KITTY_THEME
-# Tokyo Night Storm
+# Tokyo Night Moon
 include current-theme.conf
 # END_KITTY_THEME

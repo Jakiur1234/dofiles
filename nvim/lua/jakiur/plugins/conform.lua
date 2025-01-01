@@ -12,6 +12,7 @@ return {
 			cpp = { "prettier" },
 			c = { "prettier" },
 			css = { "prettier" },
+			python = { "black", "blue" },
 		},
 		format_on_save = {
 			enabled = true,
