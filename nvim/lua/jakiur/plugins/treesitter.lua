@@ -110,10 +110,10 @@ return {
 
 		vim.filetype.add({
 			pattern = {
-				[".*%.blade%.php"] = "blade",
+				[".*%.blade%.php"] = "blade.php",
 			},
 		})
-
+		print(vim.bo.filetype)
 		require("nvim-treesitter.configs").setup(opts)
 	end,
 }
